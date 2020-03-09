@@ -1,0 +1,79 @@
+﻿@model IEnumerable<TvShowsApp.Models.TvShow>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>TV Shows</h1>
+
+<p>
+    <a asp-action="Create" style="text-decoration:none; color:royalblue; font-weight:bold; font-size:20px">Add Show</a>
+    <input style="display:inline-block; margin-left:800px; padding-left: 10px " type="text" id="myInput" onkeyup="myFunction()" placeholder="Search TV Show">
+    <div>
+        <label class="control-label" style="padding: 0px 10px 0px 20px"> User </label>
+        <select id="selected_item" asp-items="@ViewBag.UsersID"></select>
+    </div>
+</p>
+<table class="table" style="color:white">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImdbUrl)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="myRowTv">
+            <td>
+                @if (item.ImageUrl != null)
+                {
+                    <img src="@Url.Content(item.ImageUrl)" alt="Image" />
+                }
+            </td>
+            <td class="title">
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @*Html.DisplayFor(modelItem => item.ImdbUrl)*@
+                <a style="text-decoration:none;color:white" href=@item.ImdbUrl target="_blank">@item.Title</a>
+            </td>
+            <td>
+                <a style="color:white" asp-action="Edit" asp-route-id="@item.TvShowsId">Edit</a> |
+                <a style="color:white" asp-action="Details" asp-route-id="@item.TvShowsId">Details</a> |
+                <a style="color:white" asp-action="Delete" asp-route-id="@item.TvShowsId">Delete</a> |
+                <a style="color:white" asp-controller="Actors" asp-action="Index" asp-route-id="@item.TvShowsId">Actors</a> |
+                @if (!item.Available)
+                {
+                    <a id="rent_@item.TvShowsId" onclick="rent(@item.TvShowsId)" href="#">Rent</a>
+                    <a id="ret_@item.TvShowsId" onclick="ret(@item.TvShowsId)" href="#" style="display: none;">Return</a>
+                }
+                else
+                {
+                    <a id="rent_@item.TvShowsId" onclick="rent(@item.TvShowsId)" href="#" style="display: none;">Rent</a>
+                    <a id="ret_@item.TvShowsId" onclick="ret(@item.TvShowsId)" href="#">Return</a>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

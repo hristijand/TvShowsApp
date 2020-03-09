@@ -1,0 +1,61 @@
+﻿@model IEnumerable<TvShowsApp.Models.Actors>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Actors</h1>
+
+<p>
+    
+    <a style="text-decoration:none; color:royalblue; font-weight:bold; font-size:20px" asp-action="Create" asp-route-id=@ViewBag.TvShowID>Create New</a>
+    <input style="display:inline-block; margin-left:800px; padding-left: 10px " type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Actor">
+</p>
+<table class="table" style="color:white">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImdbUrl)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="myRowTv">
+            <td>
+                @if (item.ImageUrl != null)
+                {
+                    <img src="@Url.Content(item.ImageUrl)" alt="Image" />
+                }
+            </td>
+            <td class="title">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @*Html.DisplayFor(modelItem => item.ImdbUrl)*@
+                <a style="color:white" href=@item.ImdbUrl target="_blank">@item.ImdbUrl</a>
+            </td>
+
+            <td>
+                <a style="color:white" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a style="color:white" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a style="color:white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

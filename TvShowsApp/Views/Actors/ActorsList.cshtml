@@ -1,0 +1,63 @@
+﻿@model IEnumerable<TvShowsApp.Models.Actors>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Actors</h1>
+<input style="display:inline; margin-left:900px; margin-bottom:10px; padding-left: 10px " type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Actor">
+
+
+<table class="table" style="color:white">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImdbUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TvShow.Title)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr class="myRowTv">
+            <td>
+                @if (item.ImageUrl != null)
+                {
+                    <img src="@Url.Content(item.ImageUrl)" alt="Image" />
+                }
+            </td>
+            <td class="title">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @*Html.DisplayFor(modelItem => item.ImdbUrl)*@
+                <a style="color:white;text-decoration:none;" href=@item.ImdbUrl target="_blank">@item.Name</a>
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.TvShow.Title)*@
+                <a style="color:white;text-decoration:none;" href=@item.TvShow.ImdbUrl target="_blank">@item.TvShow.Title</a>
+
+            </td>
+
+
+        </tr>
+        }
+    </tbody>
+</table>

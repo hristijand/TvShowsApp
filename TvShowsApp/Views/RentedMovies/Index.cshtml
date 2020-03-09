@@ -1,0 +1,63 @@
+﻿@model IEnumerable<TvShowsApp.Models.RentedMovies>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Rented Movies</h1>
+
+
+<p>
+    <a style="text-decoration:none; color:royalblue; font-weight:bold; font-size:20px" asp-action="Create" asp-route-id=@ViewBag.TvShowID>Create New</a>
+    <input style="display:inline-block; margin-left:800px; padding-left: 10px " type="text" id="myInput" onkeyup="myFunction()" placeholder="Search TV Show">
+
+</p>
+<table id="myTable" class="table" style="color:white">
+    <thead>
+        <tr class="header">
+            <th>
+                @Html.DisplayNameFor(model => model.UsersID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TvID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="myRowTv">
+            <td>
+                <!--
+    
+        -->
+                @if (item.TvShow.ImageUrl != null)
+                {
+                    <span>@Html.DisplayFor(modelItem => item.UsersID)</span> //<img src="@Url.Content(item.TvShow.ImageUrl)" alt="image" style="width:5%" />
+                }
+            </td>
+            <td class="title">
+                @Html.DisplayFor(modelItem => item.TvShow.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                <a style="color:white" asp-action="Edit" asp-route-id="@item.RentedMovieId">Edit</a> |
+                <a style="color:white" asp-action="Details" asp-route-id="@item.RentedMovieId">Details</a> |
+                <a style="color:white" asp-action="Delete" asp-route-id="@item.RentedMovieId">Delete</a>
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
